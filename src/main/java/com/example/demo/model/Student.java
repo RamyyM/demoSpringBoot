@@ -1,35 +1,31 @@
 package com.example.demo.model;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+
+import jakarta.persistence.*;
+import lombok.*;
+
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
-public class Studentt {
-@Id
-@GeneratedValue(strategy = GenerationType.IDENTITY)
-private int id;
-private String name;
-private String address;
-public Studentt() {
-}
-public int getId() {
-return id;
-}
-public String getName() {
-return name;
-}
-public String getAddress() {
-return address;
-}
-public void setId(int id) {
-this.id = id;
-}
-public void setName(String name) {
-this.name = name;
-}
-public void setAddress(String address) {
-this.address = address;
-}
-}
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) // facultatif, évite certains bugs Hibernate
+public class Student {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
+    private String firstName;
+    private String lastName;
+    private String email;
+
+    // relation avec University
+    @ManyToOne
+    @JoinColumn(name = "university_id")
+    @JsonIgnoreProperties("students")
+    private University university;
+
+    
+}

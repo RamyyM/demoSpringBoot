@@ -1,7 +1,10 @@
 package com.example.demo.repository;
-import com.example.demo.model.Studentt;
+
+import com.example.demo.model.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
-@Repository
-public interface StudenttRepository extends JpaRepository<Studentt, Integer> {
+import java.util.List;
+
+public interface StudentRepository extends JpaRepository<Student, Long> {
+    List<Student> findByFirstNameContainingIgnoreCaseOrLastNameContainingIgnoreCase(String firstName, String lastName);
+    List<Student> findByUniversity_NameContainingIgnoreCase(String universityName);
 }
